@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prac10d
+spec:
+  selector:
+    app: prac10d
+  ports:
+    - port: 8080
+      targetPort: 3030
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prac10d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prac10d
+  template:
+    metadata:
+      labels:
+        app: prac10d
+    spec:
+      containers:
+        - name: prac10d
+          image: gcr.io/sit737-week10/737-2023-t1-prac5p
+          ports:
+            - containerPort: 3030
+          imagePullPolicy: Always
